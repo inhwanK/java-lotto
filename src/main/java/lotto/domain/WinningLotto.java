@@ -1,4 +1,6 @@
-package lotto;
+package lotto.domain;
+
+import lotto.statistics.CorrectType;
 
 import java.util.List;
 
@@ -14,14 +16,10 @@ public class WinningLotto extends Lotto {
 
     private void validate(List<Integer> numbers, Integer bonusNumber) {
         super.validate(numbers);
-
-        validateBonusNumber(bonusNumber);
-        if (numbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException();
-        }
+        validateBonusNumber(numbers, bonusNumber);
     }
 
-    private void validateBonusNumber(Integer bonusNumber) {
+    private void validateBonusNumber(List<Integer> numbers, Integer bonusNumber) {
 
         if (bonusNumber <= 0) {
             throw new IllegalArgumentException("0이하의 숫자는 당첨번호가 될 수 없습니다.");
@@ -29,6 +27,10 @@ public class WinningLotto extends Lotto {
 
         if (bonusNumber > 45) {
             throw new IllegalArgumentException("45보다 큰 숫자는 당첨번호가 될 수 없습니다.");
+        }
+
+        if (numbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException();
         }
     }
 
